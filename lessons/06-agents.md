@@ -3,56 +3,75 @@
 ## Objetivos
 - Entender o que são sub-agentes e por que contexto isolado importa
 - Saber escolher o modelo certo para cada tipo de tarefa
-- Criar e invocar um agente simples de revisão de código
+- Criar um agente real de revisão de código em `.claude/agents/`
 
 ## Conceito Principal
 
-Sub-agentes são instâncias do Claude invocadas com um contexto limpo e focado. Em vez de acumular tudo numa conversa só (que fica cara e lenta), você delega tarefas específicas para agentes que começam frescos, fazem o trabalho, e retornam o resultado.
+Imagina que você tem uma equipe: um designer, um redator, um analista de dados. Cada um é especialista em uma coisa. Você não pede pro designer analisar dados — você usa cada um no que sabe melhor.
 
-**Analogia:** É como ter uma equipe de especialistas — cada um faz o que sabe melhor, sem precisar saber tudo que os outros fazem. O arquiteto planeja, o desenvolvedor implementa, o QA testa — cada um com seu contexto.
+**Agentes no Claude Code funcionam igual** — você pode criar "funcionários virtuais" com funções específicas. Em vez de jogar tudo numa conversa só (que fica cara e lenta), você delega tarefas para agentes que começam frescos, fazem o trabalho, e retornam o resultado.
 
-## Por que Contexto Isolado Importa
+## Contexto Isolado
 
+Cada agente recebe **apenas o que precisa** — não o histórico inteiro da conversa. Isso é o "contexto isolado".
+
+Por que isso importa:
 - Menos tokens = mais barato e mais rápido
 - Agente focado comete menos erros por distração
-- Resultados são mais precisos quando o escopo é claro
-- Você pode rodar múltiplos agentes em paralelo
+- Você pode rodar vários agentes ao mesmo tempo
+- Os resultados são mais precisos quando o escopo é claro
+
+**Exemplo prático:** Se você quer revisar o arquivo `auth.ts`, o agente revisor recebe só esse arquivo — não a conversa inteira, não outros arquivos, não o histórico. Só o que importa.
 
 ## Escolhendo o Modelo
 
-| Modelo | Quando usar |
-|--------|-------------|
-| **Haiku** | Tarefas mecânicas: lint, busca, formatação, checklists |
-| **Sonnet** | Implementação, pesquisa, arquitetura, decisões com julgamento |
-| **Opus** | Planejamento, orquestração, revisão final, decisões críticas |
+Pense assim: você não chama o diretor da empresa pra formatar uma planilha. Você usa quem é certo pra cada tarefa.
 
-Regra prática: use o modelo mais barato que consegue fazer o trabalho bem.
+| Modelo | Analogia | Quando usar |
+|--------|----------|-------------|
+| **Haiku** | O estagiário eficiente | Tarefas mecânicas: buscar texto, formatar código, listar arquivos, rodar lint |
+| **Sonnet** | O analista sênior | Tarefas que precisam de julgamento: escrever código, revisar, pesquisar, implementar |
+| **Opus** | O diretor | Tarefas complexas: planejar, decidir arquitetura, orquestrar outros agentes |
 
-## Como Invocar um Agente
+Regra prática: use o modelo mais barato que consegue fazer o trabalho bem. Haiku é muito mais rápido e barato que Opus — use-o sempre que possível.
 
-No Claude Code, você pode criar um agente via comando ou referenciando uma skill de agente:
+## Como os Agentes São Invocados
 
-```
-Use the Agent tool to: revise o arquivo src/auth.ts e liste problemas de segurança.
-Use model: claude-haiku-4-5
-Context: apenas o conteúdo do arquivo, sem histórico da conversa.
-```
+Agentes no Claude Code ficam em `.claude/agents/`. O próprio Claude decide quando acionar um agente (via ferramenta Agent), ou você pode pedir explicitamente:
+
+> "Delega a revisão do arquivo `src/auth.ts` para um agente revisor."
+
+O Claude lê o arquivo do agente em `.claude/agents/`, cria uma instância com contexto limpo, passa só o que é necessário, e traz o resultado de volta pra você.
 
 ## Exercício
 
-Crie uma skill chamada `code-review` que define um agente revisor de código. O agente deve:
-- Receber apenas o arquivo a ser revisado
-- Listar problemas por categoria (segurança, performance, legibilidade)
-- Usar modelo Haiku (é suficiente para revisão simples)
+Crie um agente revisor de código chamado `revisor`. O arquivo vai em `.claude/agents/revisor.md`.
+
+**Formato do arquivo de agente:**
+
+```markdown
+---
+name: revisor
+description: Revisa arquivos de código buscando problemas de qualidade
+---
+
+Você é um revisor de código especializado. Quando acionado:
+1. Leia os arquivos modificados
+2. Verifique: erros de lógica, código duplicado, nomes confusos
+3. Dê feedback construtivo em português do Brasil
+4. Classifique os problemas: crítico, aviso, sugestão
+```
 
 **Passos:**
-1. Crie `.claude/skills/code-review.md` com as instruções do agente
-2. Peça ao Claude para usar a skill num arquivo real do seu projeto
-3. Compare a revisão com o que você esperaria de um colega
+1. Crie a pasta `.claude/agents/` se não existir
+2. Crie `.claude/agents/revisor.md` com o conteúdo acima
+3. Peça ao Claude: "Use o agente revisor no arquivo [algum arquivo do seu projeto]"
+4. Observe o feedback estruturado que o agente retorna
 
 ## Critérios de Validação
 
 Você concluiu esta lição quando:
-- [ ] A skill `code-review.md` descreve claramente o comportamento do agente
-- [ ] Você invocou o agente num arquivo real e recebeu feedback estruturado
-- [ ] Entende quando usar Haiku vs Sonnet vs Opus
+- [ ] O arquivo `.claude/agents/revisor.md` existe com o frontmatter `name` e `description` corretos
+- [ ] Você invocou o agente num arquivo real e recebeu feedback classificado (crítico / aviso / sugestão)
+- [ ] Consegue explicar a diferença entre Haiku, Sonnet e Opus com suas próprias palavras
+- [ ] Entende o que é "contexto isolado" e por que ele economiza tokens

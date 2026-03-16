@@ -43,6 +43,21 @@ Sempre responda em português.
 API de agendamentos para clínicas. Multitenancy por schema no PostgreSQL.
 ```
 
+## O Segredo: Feedback Loop
+
+Aqui vai uma dica que poucos sabem, mesmo entre programadores experientes:
+
+Toda vez que a IA fizer algo errado — ela usou a linguagem errada, esqueceu uma regra, fez algo que você não queria — adicione uma regra no CLAUDE.md pra prevenir que isso aconteça de novo.
+
+Por exemplo:
+- A IA respondeu em inglês? Adicione: "Sempre responda em português do Brasil"
+- Ela criou um arquivo no lugar errado? Adicione: "Crie arquivos apenas na pasta src/"
+- Ela usou npm em vez de pnpm? Adicione: "Use sempre pnpm, nunca npm"
+
+Isso transforma o CLAUDE.md num documento vivo que fica mais inteligente com o tempo. Cada erro vira uma regra que evita erros futuros.
+
+**Analogia:** É como treinar um novo funcionário. No início ele erra bastante, mas a cada correção ele aprende e vai melhorando. O CLAUDE.md é o "caderno de treinamento" da IA.
+
 ## Exercício
 
 Crie junto com o Claude Code um `CLAUDE.md` para um projeto hipotético: uma loja virtual com Next.js, Prisma e PostgreSQL. Peça ao Claude para sugerir o que incluir.
