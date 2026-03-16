@@ -284,13 +284,14 @@ else
 fi
 
 br
-echo -e "  ${YELLOW}${BOLD}Aviso importante sobre o Claude Code:${RESET}"
+echo -e "  ${YELLOW}${BOLD}Sobre a conta do Claude Code:${RESET}"
 br
-echo -e "  O Claude Code precisa de uma ${BOLD}conta paga${RESET} na Anthropic pra funcionar."
-echo -e "  Se você ainda não tem, crie uma em: ${CYAN}${BOLD}https://claude.ai${RESET}"
+echo -e "  O Claude Code precisa de uma ${BOLD}conta na Anthropic${RESET} pra funcionar."
+echo -e "  Crie a sua em: ${CYAN}${BOLD}https://claude.ai${RESET}"
 br
-echo -e "  O plano mais acessível é o ${BOLD}Pro${RESET}, por US\$20/mês (~R\$115)."
-echo -e "  Com ele você consegue usar o Claude Code sem problemas pra aprender."
+echo -e "  ${GREEN}${BOLD}Boa notícia:${RESET} novos usuários ganham ${BOLD}30 dias grátis${RESET} do plano Pro!"
+echo -e "  Isso inclui acesso completo ao Claude Code — sem pagar nada."
+echo -e "  Depois dos 30 dias, o plano Pro custa US\$20/mês (~R\$115)."
 br
 tip "Sem a conta, o Claude Code até abre, mas não consegue responder nada."
 tip "É como ter o app instalado mas sem internet — ele precisa da conta"
