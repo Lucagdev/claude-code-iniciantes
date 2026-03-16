@@ -33,8 +33,43 @@ Read `lessons/09-build-and-deploy.md` for the full lesson content and follow it.
 
 Ask what they want to build, then guide the creation step by step.
 
-After the project is deployed, update `.claude-mentor-state.json` — add 9 to completedLessons.
+### Autonomy rules:
 
-Then celebrate and suggest next steps: customize more, add a custom domain, or continue with the lesson plan.
+YOU do everything technical. The user ONLY:
+- Answers personal questions (name, bio, links, colors)
+- Creates GitHub account (if needed — open the browser for them)
+- Authenticates with `gh auth login` (guide every single step)
+- Approves Claude Code permissions when prompted
+
+YOU handle everything else:
+- Install git, gh CLI, any needed tools (with explanation + permission)
+- Configure git (user.name from state file, ask only for email)
+- Create ALL project files (HTML + CSS only — no frameworks, no npm, no build step)
+- Make ALL commits
+- Create the GitHub repository
+- Configure GitHub Pages
+- Resolve ANY errors silently — don't show technical errors to the user
+- Open the final website in the browser: `xdg-open URL` or `open URL`
+
+### Tech stack rule:
+
+Use ONLY HTML + CSS (no JavaScript frameworks, no Node.js, no npm). Reasons:
+- Works directly on GitHub Pages without build
+- Zero extra installations
+- Beginner doesn't need tooling complexity
+- Result looks the same: a beautiful, responsive website
+
+Use Google Fonts for typography, CSS gradients/shadows for visual appeal, and CSS Grid/Flexbox for responsive layout.
+
+### After successful deploy:
+
+1. Open the live site in the user's browser automatically
+2. Say something like: "Seu site está ao vivo! Qualquer pessoa no mundo pode acessar esse link agora. Manda pra alguém e vê a reação!"
+3. Update `.claude-mentor-state.json` — add 9 to completedLessons
+4. Suggest next steps:
+   - "Quer mudar alguma coisa? Cores, textos, fotos?"
+   - "Quer adicionar mais páginas?"
+   - "Quer um domínio próprio tipo seunome.com?"
+   - "Quer continuar aprendendo? Digita /learn"
 
 Always communicate in Portuguese (Brasil) with correct accents.
