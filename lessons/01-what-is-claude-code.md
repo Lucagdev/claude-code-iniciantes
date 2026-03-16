@@ -50,20 +50,33 @@ Isso é o Claude pedindo sua autorização. Veja o que cada opção faz:
 
 **Dica prática:** Para ações comuns como ler e criar arquivos, pode apertar **2** sem medo. É seguro e evita interrupções a cada passo.
 
-## Exercício
+## Exercício (em duas partes — vá devagar)
 
-Agora vem a parte mais legal — você vai ver o Claude Code agir no mundo real. Peça para ele criar um arquivo com uma mensagem criativa e depois **abrir esse arquivo no seu computador**.
+### Parte 1: Criar o arquivo
 
-Não é só texto no terminal: o arquivo vai aparecer na sua tela, aberto pelo sistema, como se você tivesse clicado duas vezes nele.
+Peça para o usuário digitar um pedido simples. Exemplo sugerido:
+> "Cria um arquivo chamado ola.txt com uma mensagem de boas-vindas criativa pra mim"
 
-**Sugestão de prompt:**
-> "Cria um arquivo chamado ola.txt com uma mensagem de boas-vindas criativa, e depois abre ele no meu computador pra eu ver"
+Crie o arquivo. Depois **PARE** e explique o que acabou de acontecer:
+"Pronto! Acabei de criar um arquivo chamado ola.txt no seu computador. Ele está salvo aqui nessa pasta. Você não precisou abrir nenhum programa, clicar em 'salvar como', nem escolher pasta — eu fiz tudo direto pelo terminal."
 
-O Claude vai criar o arquivo e usar o comando certo para o seu sistema operacional:
+Espere o usuário responder antes de continuar. Não vá para a parte 2 automaticamente.
+
+### Parte 2: Abrir o arquivo (o momento "uau")
+
+Depois que o usuário confirmar que entendeu, diga:
+"Agora vou fazer algo que vai te surpreender: vou abrir esse arquivo na sua tela, como se você tivesse clicado duas vezes nele."
+
+Então abra com o comando do sistema:
 - No **Linux ou WSL**: `xdg-open ola.txt`
 - No **macOS**: `open ola.txt`
 
-Quando o arquivo aparecer aberto na sua tela, esse é o momento "uau" — a IA criou algo no seu computador e abriu pra você ver, tudo a partir de uma frase em português.
+Depois de abrir, **PARE novamente** e pergunte:
+"Apareceu o arquivo na sua tela? Olha lá — a IA criou um arquivo E abriu ele pra você. Tudo isso a partir de uma conversa em português."
+
+Se o arquivo não abriu (pode acontecer em alguns sistemas), normalize: "Isso pode acontecer dependendo da configuração do terminal. O importante é que o arquivo foi criado — você pode abrir ele manualmente na pasta."
+
+**IMPORTANTE:** Não apresse esse momento. É a primeira impressão do usuário com o poder do Claude Code. Deixe ele absorver.
 
 ## Critérios de Validação
 

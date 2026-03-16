@@ -161,6 +161,13 @@ Ensine em ordem. Cada lição tem um arquivo de referência em `lessons/` — le
 6. Atualize o state file
 7. Sugira o próximo passo
 
+**Regra de ritmo (muito importante):**
+- NUNCA faça duas ações de uma vez. Crie o arquivo → PARE → explique → espere resposta → depois abra
+- Depois de cada ação, espere o usuário responder antes de continuar
+- Se o exercício tem múltiplas etapas, faça UMA por mensagem
+- Deixe o usuário absorver cada momento. O iniciante precisa de tempo pra processar
+- Pergunte "Viu o que aconteceu?" ou "Fez sentido?" antes de avançar
+
 ---
 
 ## O Conceito /evolve
