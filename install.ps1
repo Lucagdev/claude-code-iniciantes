@@ -7,12 +7,12 @@ function Write-Color($text, $color = "White") {
     Write-Host $text -ForegroundColor $color
 }
 
-function Write-Info($text)    { Write-Host "  i  $text" -ForegroundColor Cyan }
+function Write-Info($text)    { Write-Host "  i  $text" -ForegroundColor Yellow }
 function Write-Ok($text)      { Write-Host "  ✓  $text" -ForegroundColor Green }
 function Write-Warn($text)    { Write-Host "  !  $text" -ForegroundColor Yellow }
 function Write-Fail($text)    { Write-Host "  ✗  $text" -ForegroundColor Red }
 function Write-Tip($text)     { Write-Host "     $text" -ForegroundColor DarkGray }
-function Write-Vocab($text)   { Write-Host "     Vocabulário: $text" -ForegroundColor DarkCyan }
+function Write-Vocab($text)   { Write-Host "     Vocabulário: $text" -ForegroundColor DarkYellow }
 
 # ─── Banner ───────────────────────────────────────────────────────────────────
 Clear-Host
@@ -25,7 +25,7 @@ Write-Color @"
  | |____| | (_| | |_| | (_| |  __/ | |  | |  __/ | | | || (_) | |
   \_____|_|\__,_|\__,_|\__,_|\___| |_|  |_|\___|_| |_|\__\___/|_|
 
-"@ Cyan
+"@ Yellow
 
 Write-Host "  ────────────────────────────────────────────────────"
 Write-Host "  por Lucas Duarte" -ForegroundColor White
@@ -89,7 +89,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
         Write-Fail "Não consegui instalar o git automaticamente."
         Write-Host ""
         Write-Host "  Baixe e instale manualmente:"
-        Write-Host "    https://git-scm.com/download/win" -ForegroundColor Cyan
+        Write-Host "    https://git-scm.com/download/win" -ForegroundColor Yellow
         Write-Host ""
         Write-Tip "Depois rode este instalador de novo."
         exit 1
@@ -139,7 +139,7 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
     } catch {
         Write-Fail "Falha ao instalar o Claude Code."
         Write-Host "  Tente manualmente:" -ForegroundColor Yellow
-        Write-Host "    irm https://claude.ai/install.ps1 | iex" -ForegroundColor Cyan
+        Write-Host "    irm https://claude.ai/install.ps1 | iex" -ForegroundColor Yellow
         exit 1
     }
 }

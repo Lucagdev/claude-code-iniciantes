@@ -2,20 +2,21 @@
 set -euo pipefail
 
 # ─── Colors & helpers ─────────────────────────────────────────────────────────
+# Palette: amber/gold accent (consistent with landing page)
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+AMBER='\033[1;33m'
 RED='\033[0;31m'
-CYAN='\033[0;36m'
+GOLD='\033[0;33m'
 BOLD='\033[1m'
 DIM='\033[2m'
 RESET='\033[0m'
 
-info()    { echo -e "  ${CYAN}ℹ${RESET}  $*"; }
+info()    { echo -e "  ${AMBER}ℹ${RESET}  $*"; }
 ok()      { echo -e "  ${GREEN}✔${RESET}  $*"; }
-warn()    { echo -e "  ${YELLOW}⚠${RESET}  $*"; }
+warn()    { echo -e "  ${GOLD}⚠${RESET}  $*"; }
 fail()    { echo -e "  ${RED}✖${RESET}  $*" >&2; }
 tip()     { echo -e "     ${DIM}$*${RESET}"; }
-vocab()   { echo -e "     ${CYAN}${BOLD}Vocabulário:${RESET} ${DIM}$*${RESET}"; }
+vocab()   { echo -e "     ${AMBER}${BOLD}Vocabulário:${RESET} ${DIM}$*${RESET}"; }
 br()      { echo; }
 
 pause() {
@@ -26,7 +27,7 @@ pause() {
 
 # ─── Banner ───────────────────────────────────────────────────────────────────
 clear 2>/dev/null || true
-echo -e "${CYAN}${BOLD}"
+echo -e "${AMBER}"
 cat << 'BANNER'
    _____ _                 _        __  __            _
   / ____| |               | |      |  \/  |          | |
@@ -39,9 +40,9 @@ BANNER
 echo -e "${RESET}"
 echo -e "  ${DIM}────────────────────────────────────────────────────${RESET}"
 echo -e "  ${BOLD}por Lucas Duarte${RESET}"
-echo -e "  ${DIM}Threads: ${CYAN}threads.com/@lucasgduartee${RESET}"
-echo -e "  ${DIM}GitHub:  ${CYAN}github.com/Lucagdev${RESET}"
-echo -e "  ${DIM}YouTube: ${CYAN}youtube.com/@lucasgdev${RESET}"
+echo -e "  ${DIM}Threads: ${AMBER}threads.com/@lucasgduartee${RESET}"
+echo -e "  ${DIM}GitHub:  ${AMBER}github.com/Lucagdev${RESET}"
+echo -e "  ${DIM}YouTube: ${AMBER}youtube.com/@lucasgdev${RESET}"
 echo -e "  ${DIM}────────────────────────────────────────────────────${RESET}"
 br
 echo -e "  ${BOLD}Olá! Bem-vindo ao instalador do Claude Mentor.${RESET}"
@@ -61,7 +62,7 @@ echo -e "  ${DIM}Se algo der errado, vou te dizer exatamente o que fazer.${RESET
 pause
 
 # ─── Detect OS ────────────────────────────────────────────────────────────────
-echo -e "  ${CYAN}${BOLD}── Passo 1 de 4: Conhecendo seu computador ──${RESET}"
+echo -e "  ${AMBER}${BOLD}── Passo 1 de 4: Conhecendo seu computador ──${RESET}"
 br
 echo -e "  Primeiro, preciso saber qual sistema você usa."
 echo -e "  Isso é importante porque cada sistema instala programas de um jeito."
@@ -108,7 +109,7 @@ case "$OS" in
     br
     echo -e "  ${BOLD}Se você usa Windows sem WSL:${RESET}"
     echo -e "  Abra o PowerShell como Administrador e digite:"
-    echo -e "    ${CYAN}wsl --install${RESET}"
+    echo -e "    ${AMBER}wsl --install${RESET}"
     echo -e "  Depois reinicie o PC e rode este instalador de novo."
     br
     vocab "WSL = Windows Subsystem for Linux. Um jeito de rodar"
@@ -151,7 +152,7 @@ install_pkg() {
 
 # ─── Check tools ──────────────────────────────────────────────────────────────
 br
-echo -e "  ${CYAN}${BOLD}── Passo 2 de 4: Verificando ferramentas ──${RESET}"
+echo -e "  ${AMBER}${BOLD}── Passo 2 de 4: Verificando ferramentas ──${RESET}"
 br
 echo -e "  Agora vou verificar se você tem 3 programas essenciais."
 echo -e "  Se algum estiver faltando, instalo pra você."
@@ -180,8 +181,8 @@ else
     fail "Não consegui instalar o curl automaticamente."
     br
     echo -e "  Tente você mesmo com um desses comandos:"
-    echo -e "    ${CYAN}sudo apt install curl${RESET}   (Ubuntu, Debian, Mint)"
-    echo -e "    ${CYAN}sudo dnf install curl${RESET}   (Fedora)"
+    echo -e "    ${AMBER}sudo apt install curl${RESET}   (Ubuntu, Debian, Mint)"
+    echo -e "    ${AMBER}sudo dnf install curl${RESET}   (Fedora)"
     br
     tip "Copie o comando, cole aqui no terminal e aperte ENTER."
     tip "Ele vai pedir sua senha — é a senha do seu usuário no computador."
@@ -218,9 +219,9 @@ else
     fail "Não consegui instalar o git automaticamente."
     br
     echo -e "  Tente você mesmo:"
-    echo -e "    ${CYAN}sudo apt install git${RESET}   (Ubuntu, Debian, Mint)"
-    echo -e "    ${CYAN}sudo dnf install git${RESET}   (Fedora)"
-    echo -e "  No macOS: ${CYAN}xcode-select --install${RESET}"
+    echo -e "    ${AMBER}sudo apt install git${RESET}   (Ubuntu, Debian, Mint)"
+    echo -e "    ${AMBER}sudo dnf install git${RESET}   (Fedora)"
+    echo -e "  No macOS: ${AMBER}xcode-select --install${RESET}"
     br
     tip "Depois rode este instalador de novo."
     exit 1
@@ -278,7 +279,7 @@ else
     echo -e "  Espere alguns minutos e tente de novo."
     br
     echo -e "  Se continuar falhando, tente manualmente:"
-    echo -e "    ${CYAN}curl -fsSL https://claude.ai/install.sh | bash${RESET}"
+    echo -e "    ${AMBER}curl -fsSL https://claude.ai/install.sh | bash${RESET}"
     exit 1
   fi
 fi
@@ -287,7 +288,7 @@ br
 echo -e "  ${YELLOW}${BOLD}Sobre a conta do Claude Code:${RESET}"
 br
 echo -e "  O Claude Code precisa de uma ${BOLD}conta na Anthropic${RESET} pra funcionar."
-echo -e "  Crie a sua em: ${CYAN}${BOLD}https://claude.ai${RESET}"
+echo -e "  Crie a sua em: ${AMBER}${BOLD}https://claude.ai${RESET}"
 br
 echo -e "  ${GREEN}${BOLD}Boa notícia:${RESET} novos usuários ganham ${BOLD}30 dias grátis${RESET} do plano Pro!"
 echo -e "  Isso inclui acesso completo ao Claude Code — sem pagar nada."
@@ -302,7 +303,7 @@ vocab "Anthropic = a empresa que criou o Claude (a IA por trás de tudo)."
 pause
 
 # ─── Clone project ────────────────────────────────────────────────────────────
-echo -e "  ${CYAN}${BOLD}── Passo 4 de 4: Baixando o projeto ──${RESET}"
+echo -e "  ${AMBER}${BOLD}── Passo 4 de 4: Baixando o projeto ──${RESET}"
 br
 echo -e "  Agora vou baixar os arquivos do Claude Mentor pro seu computador."
 br
@@ -314,7 +315,7 @@ br
 
 DEFAULT_DIR="$HOME/claude-mentor"
 echo -e "  Por padrão, vou salvar os arquivos aqui:"
-echo -e "    ${CYAN}${BOLD}$DEFAULT_DIR${RESET}"
+echo -e "    ${AMBER}${BOLD}$DEFAULT_DIR${RESET}"
 br
 
 read -rp "$(echo -e "  Pode ser nessa pasta? ${BOLD}[S/n]${RESET} ")" USE_DEFAULT
@@ -357,7 +358,7 @@ else
     mkdir -p "$TARGET_DIR"
     br
     echo -e "  Quando a internet voltar, rode:"
-    echo -e "    ${CYAN}git clone $REPO_URL $TARGET_DIR${RESET}"
+    echo -e "    ${AMBER}git clone $REPO_URL $TARGET_DIR${RESET}"
   fi
 fi
 
@@ -372,7 +373,7 @@ br
 echo -e "  Vou abrir o Claude Code dentro da pasta do projeto."
 echo -e "  Quando ele abrir, você vai ver um campo pra digitar."
 br
-echo -e "  Digite ${CYAN}${BOLD}/start${RESET} e aperte ENTER."
+echo -e "  Digite ${AMBER}${BOLD}/start${RESET} e aperte ENTER."
 br
 echo -e "  A IA vai te dar boas-vindas e começar a te guiar."
 echo -e "  Pode conversar com ela normalmente, como se fosse uma pessoa."
@@ -392,16 +393,16 @@ echo -e "  ${DIM}YouTube: @lucasgdev${RESET}"
 echo -e "  ${DIM}─────────────────────────────────────────────────────${RESET}"
 br
 
-read -rp "$(echo -e "  ${BOLD}Vamos começar? ${CYAN}[S/n]${RESET} ")" LAUNCH
+read -rp "$(echo -e "  ${BOLD}Vamos começar? ${AMBER}[S/n]${RESET} ")" LAUNCH
 LAUNCH="${LAUNCH:-s}"
 
 if [[ "$LAUNCH" =~ ^[nN]$ ]]; then
   br
   ok "Beleza! Quando quiser começar, abra o terminal e digite:"
   br
-  echo -e "    ${CYAN}${BOLD}cd \"$TARGET_DIR\" && claude${RESET}"
+  echo -e "    ${AMBER}${BOLD}cd \"$TARGET_DIR\" && claude${RESET}"
   br
-  echo -e "  Depois, lá dentro, digite ${CYAN}${BOLD}/start${RESET} pra começar."
+  echo -e "  Depois, lá dentro, digite ${AMBER}${BOLD}/start${RESET} pra começar."
   br
   echo -e "  ${DIM}Até logo! Boa sorte na jornada.${RESET}"
   br
