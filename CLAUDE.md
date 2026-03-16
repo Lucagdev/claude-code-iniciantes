@@ -123,6 +123,7 @@ Após a lição 2+, o projeto se transforma no workspace real do usuário.
 - `/start` — Boas-vindas ou retomar
 - `/learn` — Menu de lições com progresso
 - `/evolve` — Transformar o projeto
+- `/update` — Verificar novidades do Claude Code e atualizar lições
 - `/reset` — Recomeçar do zero (pede confirmação)
 
 ---

@@ -37,7 +37,12 @@ cat << 'BANNER'
 
 BANNER
 echo -e "${RESET}"
-echo -e "  ${DIM}por Lucas Duarte · @lucasgduartee${RESET}"
+echo -e "  ${DIM}────────────────────────────────────────────────────${RESET}"
+echo -e "  ${BOLD}por Lucas Duarte${RESET}"
+echo -e "  ${DIM}Threads: ${CYAN}threads.com/@lucasgduartee${RESET}"
+echo -e "  ${DIM}GitHub:  ${CYAN}github.com/Lucagdev${RESET}"
+echo -e "  ${DIM}YouTube: ${CYAN}youtube.com/@lucasgdev${RESET}"
+echo -e "  ${DIM}────────────────────────────────────────────────────${RESET}"
 br
 echo -e "  ${BOLD}Olá! Bem-vindo ao instalador do Claude Mentor.${RESET}"
 br

@@ -42,6 +42,7 @@ curl -fsSL https://raw.githubusercontent.com/Lucagdev/claude-mentor/main/install
 | `/start` | Boas-vindas + retomar de onde parou |
 | `/learn` | Menu de lições com progresso |
 | `/evolve` | Transformar o projeto no seu workspace |
+| `/update` | Verificar novidades do Claude Code e atualizar lições |
 | `/reset` | Recomeçar do zero |
 
 ## O conceito
