@@ -1,0 +1,15 @@
+# User state (generated during onboarding)
+.claude-mentor-state.json
+
+# Test files created during lessons
+ola.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
