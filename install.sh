@@ -285,7 +285,7 @@ else
 fi
 
 br
-echo -e "  ${YELLOW}${BOLD}Sobre a conta do Claude Code:${RESET}"
+echo -e "  ${AMBER}${BOLD}Sobre a conta do Claude Code:${RESET}"
 br
 echo -e "  O Claude Code precisa de uma ${BOLD}conta na Anthropic${RESET} pra funcionar."
 echo -e "  Crie a sua em: ${AMBER}${BOLD}https://claude.ai${RESET}"
