@@ -79,35 +79,41 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     Write-Tip "como um 'ctrl+z' infinito que nunca esquece nada."
     Write-Vocab "git = sistema de controle de versão."
     Write-Host ""
-    Write-Info "Baixando e instalando o git..."
-    Write-Tip "Buscando a versão mais recente..."
-    Write-Host ""
-
     $gitInstalled = $false
 
-    try {
-        # Get latest Git for Windows release from GitHub API
-        $release = Invoke-RestMethod "https://api.github.com/repos/git-for-windows/git/releases/latest"
-        $asset = $release.assets | Where-Object { $_.name -match 'Git-.*-64-bit\.exe$' } | Select-Object -First 1
+    Write-Host "  Posso instalar o git automaticamente pra você." -ForegroundColor White
+    Write-Host "  Vou baixar direto do site oficial e instalar." -ForegroundColor White
+    Write-Host ""
+    $installChoice = Read-Host "  Instalar o git agora? [S/n]"
 
-        if ($asset) {
-            $installerPath = "$env:TEMP\git-installer.exe"
-            Write-Tip "Baixando $($asset.name)..."
-            Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $installerPath
+    if ($installChoice -eq '' -or $installChoice -match '^[sS]$') {
+        Write-Host ""
+        Write-Info "Buscando a versão mais recente..."
 
-            Write-Tip "Instalando... (isso pode levar um minuto)"
-            Start-Process -FilePath $installerPath -ArgumentList '/VERYSILENT','/NORESTART' -Wait
+        try {
+            $release = Invoke-RestMethod "https://api.github.com/repos/git-for-windows/git/releases/latest"
+            $asset = $release.assets | Where-Object { $_.name -match 'Git-.*-64-bit\.exe$' } | Select-Object -First 1
 
-            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-            if (Get-Command git -ErrorAction SilentlyContinue) {
-                $gitInstalled = $true
-                Write-Ok "git instalado com sucesso!"
+            if ($asset) {
+                $installerPath = "$env:TEMP\git-installer.exe"
+                Write-Info "Baixando $($asset.name)... (pode levar um minuto)"
+                Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $installerPath
+
+                Write-Info "Instalando... (pode levar um minuto)"
+                Write-Tip "O instalador vai rodar em segundo plano — só aguarde."
+                Start-Process -FilePath $installerPath -ArgumentList '/VERYSILENT','/NORESTART' -Wait
+
+                $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+                if (Get-Command git -ErrorAction SilentlyContinue) {
+                    $gitInstalled = $true
+                    Write-Ok "git instalado com sucesso!"
+                }
+
+                Remove-Item $installerPath -ErrorAction SilentlyContinue
             }
-
-            Remove-Item $installerPath -ErrorAction SilentlyContinue
+        } catch {
+            # Download or install failed
         }
-    } catch {
-        # Download or install failed
     }
 
     if (-not $gitInstalled) {
