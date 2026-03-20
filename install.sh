@@ -178,16 +178,24 @@ else
   if install_pkg curl && command -v curl &>/dev/null; then
     ok "curl instalado com sucesso!"
   else
-    fail "Não consegui instalar o curl automaticamente."
+    warn "Não consegui instalar automaticamente."
     br
-    echo -e "  Tente você mesmo com um desses comandos:"
+    echo -e "  Instale manualmente com um desses comandos:"
     echo -e "    ${AMBER}sudo apt install curl${RESET}   (Ubuntu, Debian, Mint)"
     echo -e "    ${AMBER}sudo dnf install curl${RESET}   (Fedora)"
     br
-    tip "Copie o comando, cole aqui no terminal e aperte ENTER."
-    tip "Ele vai pedir sua senha — é a senha do seu usuário no computador."
-    tip "Quando terminar, rode este instalador de novo."
-    exit 1
+    tip "Abra outra aba do terminal, instale, e volte aqui."
+
+    while true; do
+      br
+      read -rp "$(echo -e "     ${DIM}Aperte ENTER depois de instalar o curl...${RESET} ")" _
+      if command -v curl &>/dev/null; then
+        ok "curl encontrado! Vamos continuar."
+        break
+      fi
+      warn "Ainda não encontrei o curl."
+      tip "Verifique se a instalação terminou e tente de novo."
+    done
   fi
 fi
 
@@ -216,15 +224,26 @@ else
   if install_pkg git && command -v git &>/dev/null; then
     ok "git instalado com sucesso!"
   else
-    fail "Não consegui instalar o git automaticamente."
+    warn "Não consegui instalar automaticamente."
     br
-    echo -e "  Tente você mesmo:"
+    echo -e "  Sem problema! Instale manualmente com um desses comandos:"
     echo -e "    ${AMBER}sudo apt install git${RESET}   (Ubuntu, Debian, Mint)"
     echo -e "    ${AMBER}sudo dnf install git${RESET}   (Fedora)"
     echo -e "  No macOS: ${AMBER}xcode-select --install${RESET}"
     br
-    tip "Depois rode este instalador de novo."
-    exit 1
+    tip "Abra outra aba do terminal, instale, e volte aqui."
+    tip "Não precisa fechar esta janela."
+
+    while true; do
+      br
+      read -rp "$(echo -e "     ${DIM}Aperte ENTER depois de instalar o git...${RESET} ")" _
+      if command -v git &>/dev/null; then
+        ok "git encontrado! Vamos continuar."
+        break
+      fi
+      warn "Ainda não encontrei o git."
+      tip "Verifique se a instalação terminou e tente de novo."
+    done
   fi
 fi
 
@@ -260,27 +279,30 @@ else
       ok "Claude Code instalado com sucesso!"
     else
       br
-      warn "A instalação terminou, mas o terminal precisa ser reiniciado."
-      br
-      echo -e "  ${BOLD}O que fazer agora:${RESET}"
-      echo -e "    1. Feche esta janela do terminal"
-      echo -e "    2. Abra um terminal novo"
-      echo -e "    3. Rode este mesmo comando de instalação de novo"
-      br
-      tip "Não se preocupe — na próxima vez, ele vai pular o que já instalou."
-      tip "Isso acontece porque o terminal precisa 'recarregar' pra encontrar"
-      tip "o programa novo. É normal!"
-      exit 0
+      warn "A instalação terminou, mas não encontrei o Claude Code."
     fi
   else
-    fail "Falha ao instalar o Claude Code."
+    warn "Não consegui instalar automaticamente."
+  fi
+
+  if ! command -v claude &>/dev/null; then
     br
-    echo -e "  Isso geralmente acontece por problema de conexão com a internet."
-    echo -e "  Espere alguns minutos e tente de novo."
-    br
-    echo -e "  Se continuar falhando, tente manualmente:"
+    echo -e "  Sem problema! Instale manualmente em outra aba do terminal:"
     echo -e "    ${AMBER}curl -fsSL https://claude.ai/install.sh | bash${RESET}"
-    exit 1
+    br
+    tip "Abra outra aba, cole o comando acima, e volte aqui."
+
+    while true; do
+      br
+      read -rp "$(echo -e "     ${DIM}Aperte ENTER depois de instalar o Claude Code...${RESET} ")" _
+      export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+      if command -v claude &>/dev/null; then
+        ok "Claude Code encontrado! Vamos continuar."
+        break
+      fi
+      warn "Ainda não encontrei o Claude Code."
+      tip "Verifique se a instalação terminou e tente de novo."
+    done
   fi
 fi
 
