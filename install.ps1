@@ -79,20 +79,45 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     Write-Tip "como um 'ctrl+z' infinito que nunca esquece nada."
     Write-Vocab "git = sistema de controle de versão."
     Write-Host ""
-    Write-Info "Instalando git via winget..."
+    Write-Info "Tentando instalar git via winget..."
 
-    try {
-        winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
+    $gitInstalled = $false
+    $ErrorActionPreference = "Continue"
+    $wingetOutput = winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements 2>&1
+    $ErrorActionPreference = "Stop"
+
+    if ($LASTEXITCODE -eq 0) {
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-        Write-Ok "git instalado com sucesso!"
-    } catch {
-        Write-Fail "Não consegui instalar o git automaticamente."
+        if (Get-Command git -ErrorAction SilentlyContinue) {
+            $gitInstalled = $true
+            Write-Ok "git instalado com sucesso!"
+        }
+    }
+
+    if (-not $gitInstalled) {
+        Write-Warn "Não consegui instalar automaticamente."
         Write-Host ""
-        Write-Host "  Baixe e instale manualmente:"
-        Write-Host "    https://git-scm.com/download/win" -ForegroundColor Yellow
+        Write-Host "  Sem problema! Vou te ajudar a instalar manualmente." -ForegroundColor White
         Write-Host ""
-        Write-Tip "Depois rode este instalador de novo."
-        exit 1
+        Write-Host "  1. Abra este link no navegador:" -ForegroundColor White
+        Write-Host "     https://git-scm.com/download/win" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "  2. Baixe e instale (pode clicar 'Next' em tudo)" -ForegroundColor White
+        Write-Host ""
+        Write-Host "  3. Quando terminar, volte aqui e aperte ENTER" -ForegroundColor White
+        Write-Host ""
+        Write-Tip "Não precisa fechar esta janela — só volte aqui quando terminar."
+
+        while ($true) {
+            Read-Host "`n     Aperte ENTER depois de instalar o git..."
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            if (Get-Command git -ErrorAction SilentlyContinue) {
+                Write-Ok "git encontrado! Vamos continuar."
+                break
+            }
+            Write-Warn "Ainda não encontrei o git."
+            Write-Tip "Verifique se a instalação terminou e tente de novo."
+        }
     }
 }
 
@@ -119,28 +144,42 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
     Write-Host ""
     Write-Info "Baixando e instalando... (pode levar alguns segundos)"
 
+    $claudeInstalled = $false
     try {
         irm https://claude.ai/install.ps1 | iex
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
         if (Get-Command claude -ErrorAction SilentlyContinue) {
+            $claudeInstalled = $true
             Write-Ok "Claude Code instalado com sucesso!"
-        } else {
-            Write-Warn "A instalação terminou, mas o terminal precisa ser reiniciado."
-            Write-Host ""
-            Write-Host "  O que fazer agora:" -ForegroundColor White
-            Write-Host "    1. Feche esta janela do PowerShell"
-            Write-Host "    2. Abra um PowerShell novo"
-            Write-Host "    3. Rode este mesmo comando de instalação de novo"
-            Write-Host ""
-            Write-Tip "Não se preocupe — na próxima vez, ele vai pular o que já instalou."
-            exit 0
         }
     } catch {
-        Write-Fail "Falha ao instalar o Claude Code."
-        Write-Host "  Tente manualmente:" -ForegroundColor Yellow
-        Write-Host "    irm https://claude.ai/install.ps1 | iex" -ForegroundColor Yellow
-        exit 1
+        # Installation script failed
+    }
+
+    if (-not $claudeInstalled) {
+        Write-Warn "Não consegui detectar o Claude Code automaticamente."
+        Write-Host ""
+        Write-Host "  Sem problema! Vou te ajudar:" -ForegroundColor White
+        Write-Host ""
+        Write-Host "  1. Abra outra aba do terminal (PowerShell)" -ForegroundColor White
+        Write-Host "  2. Cole este comando lá:" -ForegroundColor White
+        Write-Host "     irm https://claude.ai/install.ps1 | iex" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "  3. Quando terminar, volte aqui e aperte ENTER" -ForegroundColor White
+        Write-Host ""
+        Write-Tip "Não precisa fechar esta janela — só volte aqui quando terminar."
+
+        while ($true) {
+            Read-Host "`n     Aperte ENTER depois de instalar o Claude Code..."
+            $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+            if (Get-Command claude -ErrorAction SilentlyContinue) {
+                Write-Ok "Claude Code encontrado! Vamos continuar."
+                break
+            }
+            Write-Warn "Ainda não encontrei o Claude Code."
+            Write-Tip "Verifique se a instalação terminou e tente de novo."
+        }
     }
 }
 
